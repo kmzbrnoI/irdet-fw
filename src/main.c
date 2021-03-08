@@ -1,3 +1,22 @@
+#include <stdbool.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include <avr/io.h>
+
+#include "hardware.h"
+
+///////////////////////////////////////////////////////////////////////////////
+
+int main();
+void init();
+
+///////////////////////////////////////////////////////////////////////////////
+
 int main() {
-	return 0;
+	init();
+	while (true) {}
+}
+
+void init() {
+	sei();
 }
