@@ -9,27 +9,54 @@
 
 int main();
 void init();
+bool read_pin(size_t pini);
 
 ///////////////////////////////////////////////////////////////////////////////
 
 int main() {
+	size_t pwri = 0;
 	init();
 
 	while (true) {
-		set_power(0, true);
-		set_output(7, true);
-		_delay_us(50);
-		set_power(0, false);
-		set_output(7, false);
-		_delay_ms(1);
+		set_power(pwri, true);
+		_delay_us(40);
+
+		bool pina1 = read_pin(pwri*2);
+		bool pinb1 = read_pin(pwri*2+1);
+		set_power(pwri, false);
+
+		_delay_us(200);
+
+		bool pina2 = read_pin(pwri*2);
+		bool pinb2 = read_pin(pwri*2+1);
+
+		set_output(2*pwri, (pina1 && !pina2));
+		set_output(2*pwri+1, (pinb1 && !pinb2));
+
+		if (pina2 || pinb2) { /* error */ }
+
+		pwri++;
+		if (pwri >= POWER_OUTPUTS)
+			pwri = 0;
 	}
 }
 
 void init() {
-	// Enable outputs
+	// Configure outputs
 	DDRB = 0xFF;
 	DDRC = 0x03;
 	DDRD = 0xF0;
+}
 
-	sei();
+bool read_pin(size_t pini) {
+	// Takes ~15us at -O3
+	static const size_t NO_READS = 12;
+	static const size_t THRESHOLD = 8;
+	size_t counter = 0;
+	for (size_t i = 0; i < NO_READS; i++) {
+		if (!get_input(pini))
+			counter++;
+		_delay_us(1);
+	}
+	return (counter >= THRESHOLD);
 }
