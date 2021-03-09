@@ -1,6 +1,7 @@
 # IR Detector firmware
 
-TODO
+Simple firmware for [Infradetector PCB](https://github.com/kmzbrnoI/irdet-ele)
+main MCU ATmega8-like (8a, 88, 328, ...).
 
 ## Build & requirements
 
