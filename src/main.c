@@ -15,12 +15,12 @@ void init();
 int main() {
 	init();
 
-	set_output(7, true); // DEBUG
-
 	while (true) {
 		set_power(0, true);
+		set_output(7, true);
 		_delay_us(50);
 		set_power(0, false);
+		set_output(7, false);
 		_delay_ms(1);
 	}
 }

@@ -46,7 +46,7 @@ MCU = atmega328p
 
 # Processor fuses.
 #     Define fuses for processor, flash by calling 'make fuses'
-FUSES = -U lfuse:w:0x52:m -U hfuse:w:0xdD9:m -U efuse:w:0xFC:m
+FUSES = -U lfuse:w:0xD2:m -U hfuse:w:0xdD9:m -U efuse:w:0xFC:m
 
 
 # Processor frequency.
@@ -67,7 +67,7 @@ FUSES = -U lfuse:w:0x52:m -U hfuse:w:0xdD9:m -U efuse:w:0xFC:m
 #         F_CPU = 16000000
 #         F_CPU = 18432000
 #         F_CPU = 20000000
-F_CPU = 1000000
+F_CPU = 8000000
 
 
 # Output format. (can be srec, ihex, binary)
