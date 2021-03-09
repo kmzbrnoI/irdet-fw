@@ -15,9 +15,13 @@ bool read_pin(size_t pini);
 
 int main() {
 	size_t pwri = 0;
+	bool error = false;
 	init();
 
+	// Cycling through all IR's takes ~1.5 ms
 	while (true) {
+		// Single loop ~350 us
+
 		set_power(pwri, true);
 		_delay_us(40);
 
@@ -33,11 +37,15 @@ int main() {
 		set_output(2*pwri, (pina1 && !pina2));
 		set_output(2*pwri+1, (pinb1 && !pinb2));
 
-		if (pina2 || pinb2) { /* error */ }
+		if (pina2 || pinb2)
+			error = true;
 
 		pwri++;
-		if (pwri >= POWER_OUTPUTS)
+		if (pwri >= POWER_OUTPUTS) {
 			pwri = 0;
+			status_led(error);
+			error = false;
+		}
 	}
 }
 
@@ -46,6 +54,10 @@ void init() {
 	DDRB = 0xFF;
 	DDRC = 0x03;
 	DDRD = 0xF0;
+
+	status_led(true);
+	_delay_ms(200);
+	status_led(false);
 }
 
 bool read_pin(size_t pini) {

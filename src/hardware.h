@@ -46,4 +46,11 @@ static inline void set_power(size_t i, bool state) {
 	}
 }
 
+static inline void status_led(bool state) {
+	if (state)
+		PORTB |= (1 << PORTB7);
+	else
+		PORTB &= ~(1 << PORTB7);
+}
+
 #endif
