@@ -18,12 +18,12 @@ int main() {
 	bool error = false;
 	init();
 
-	// Cycling through all IR's takes ~1.5 ms
+	// Period per 1 IR = 10 ms (100 Hz)
 	while (true) {
-		// Single loop ~350 us
+		// Single loop 2.5 ms
 
 		set_power(pwri, true);
-		_delay_us(40);
+		_delay_us(50);
 
 		bool pina1 = read_pin(pwri*2);
 		bool pinb1 = read_pin(pwri*2+1);
@@ -46,6 +46,8 @@ int main() {
 			status_led(error);
 			error = false;
 		}
+
+		_delay_ms(2);
 	}
 }
 
