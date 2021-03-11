@@ -13,7 +13,7 @@ static inline bool get_input(size_t i) {
 		return PINC & (1 << mapping[i]);
 	} else if (i <= 7) {
 		const static size_t mapping[] = {PIND1, PIND0, PIND2, PIND3};
-		return PIND & (1 << mapping[i-3]);
+		return PIND & (1 << mapping[i-4]);
 	}
 	return false;
 }
