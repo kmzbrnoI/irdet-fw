@@ -1,5 +1,5 @@
 MCU = atmega328p
-FUSES = -U lfuse:w:0xD2:m -U hfuse:w:0xdD9:m -U efuse:w:0xFC:m
+FUSES = -U lfuse:w:0xD2:m -U hfuse:w:0xD9:m -U efuse:w:0xFC:m
 F_CPU = 8000000
 FORMAT = ihex
 BUILDDIR = build
